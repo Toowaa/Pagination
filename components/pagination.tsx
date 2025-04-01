@@ -21,7 +21,7 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
       `${process.env.NEXT_PUBLIC_USER}:${process.env.NEXT_PUBLIC_PASSWORD}`
     );
 
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=${currentPage}`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=${currentPage-1}`, {
       headers: { Authorization: authHeader },
     })
       .then((response) => {
@@ -36,7 +36,7 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
   }, [currentPage, initialBuses.content]);
 
   const handlePageChange = (pageNumber: number) => {
-    if (pageNumber > initialBuses.totalPages-1 || pageNumber < 1) return;
+    if (pageNumber > initialBuses.totalPages || pageNumber < 1) return;
     setCurrentPage(pageNumber);
   };
 
@@ -75,7 +75,7 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
                   <td>{bus.id}</td>
                   <td>{bus.nroBus}</td>
                   <td>{bus.placa}</td>
-                  <td>{bus.fechaCreacion}</td>
+                  <td>{bus.fechaCreacion.slice(0, 10)}</td>
                   <td>{bus.caracteristicas}</td>
                   <td>{bus.placa}</td>
                   <td>{bus.activo.toString()}</td>
@@ -102,7 +102,7 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
                       <ChevronLeftIcon />
                     </button>
                     <span>
-                      Página {currentPage} de {initialBuses.totalPages-1}
+                      Página {currentPage} de {initialBuses.totalPages}
                     </span>
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
