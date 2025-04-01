@@ -19,9 +19,11 @@ export const GetBuses = async (): Promise<Pageable> => {
       throw new Error("Error al obtener el datos");
     }
     const data: Pageable = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
+    console.log("Error al obtener el datos");
     return {
       pageable: {
         pageNumber: 1,
