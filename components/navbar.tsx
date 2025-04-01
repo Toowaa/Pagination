@@ -1,4 +1,3 @@
-import { icons } from "@/assets/icons";
 
 export const Navbar = () => {
   return (
