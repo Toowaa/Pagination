@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { Bus, Pageable } from "@/interface/interface";
 import { ChevronLeftIcon, ChevronRightIcon, Eye, X } from "lucide-react";
 
@@ -10,6 +10,30 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
   const [loading, setLoading] = useState(false);
   const [selectedBus, setSelectedBus] = useState<Bus | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (currentPage === 1 && initialBuses.content) {
+      return;
+    }
+
+    setLoading(true);
+    const authHeader = "Basic " + btoa(
+      `${process.env.NEXT_PUBLIC_USER}:${process.env.NEXT_PUBLIC_PASSWORD}`
+    );
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=${currentPage}`, {
+      headers: { Authorization: authHeader },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Error en la respuesta del servidor");
+        return response.json();
+      })
+      .then((data: Pageable) => {
+        setBuses(data);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [currentPage, initialBuses.content]);
 
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber > initialBuses.totalPages-1 || pageNumber < 1) return;
@@ -24,8 +48,6 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
   const closeDialog = () => {
     setIsDialogOpen(false);
     setSelectedBus(null);
-    setBuses(initialBuses);
-    setLoading(false);
   };
 
   return (
