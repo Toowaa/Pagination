@@ -13,7 +13,7 @@ export const GetBuses = async ():Promise<Pageable> => {
   });
 
   const data :Pageable= await response.json();
-  
+  console.log(data.pageable);	
   return data;
 };
 
