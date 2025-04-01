@@ -8,8 +8,7 @@ export default async function Home() {
 
   return (
     <div>
-      
-      <Pagination initialBuses={buses as Pageable} />
+            <Pagination initialBuses={buses as Pageable} />
     </div>
   );
 }
