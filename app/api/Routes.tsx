@@ -6,7 +6,7 @@ const authHeader =
 export const GetBuses = async (): Promise<Pageable> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=1`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=0`,
       {
         method: "GET",
         headers: {
@@ -19,7 +19,7 @@ export const GetBuses = async (): Promise<Pageable> => {
       throw new Error("Error al obtener el datos");
     }
     const data: Pageable = await response.json();
-    console.log(data);
+  
     return data;
   } catch (error) {
     console.error(error);
