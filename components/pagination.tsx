@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Bus, Pageable } from "@/interface/interface";
 import { ChevronLeftIcon, ChevronRightIcon, Eye, X } from "lucide-react";
 
@@ -24,6 +24,8 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
   const closeDialog = () => {
     setIsDialogOpen(false);
     setSelectedBus(null);
+    setBuses(initialBuses);
+    setLoading(false);
   };
 
   return (
