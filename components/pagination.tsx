@@ -11,30 +11,6 @@ export const Pagination = ({ initialBuses }: { initialBuses: Pageable }) => {
   const [selectedBus, setSelectedBus] = useState<Bus | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  useEffect(() => {
-    if (currentPage === 1 && initialBuses.content) {
-      return;
-    }
-
-    setLoading(true);
-    const authHeader = "Basic " + btoa(
-      `${process.env.NEXT_PUBLIC_USER}:${process.env.NEXT_PUBLIC_PASSWORD}`
-    );
-
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/bus?page=${currentPage}`, {
-      headers: { Authorization: authHeader },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Error en la respuesta del servidor");
-        return response.json();
-      })
-      .then((data: Pageable) => {
-        setBuses(data);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [currentPage, initialBuses.content]);
-
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber > initialBuses.totalPages-1 || pageNumber < 1) return;
     setCurrentPage(pageNumber);
