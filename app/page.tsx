@@ -7,7 +7,7 @@ export default async function Home() {
   const buses = await GetBuses();
   return (
    <div >
-    <Pagination Buses={buses as Pageable } />
+    <Pagination initialBuses={buses as Pageable } />
 
    </div>
   );
