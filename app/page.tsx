@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { GetBuses } from "@/api/Routes";
 import { Pagination } from "@/components/pagination";
 import { Pageable } from "@/interface/interface";
