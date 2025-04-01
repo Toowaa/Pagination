@@ -8,15 +8,11 @@ export interface Bus {
 }
 
 export interface ApiBus{
-    last: boolean;
-    totalPages: number;
-    totalElements: number;
-    size: number;
-    number: number;
-    sort: Sort;
-    first: boolean;
-    numberOfElements: number;
-    empty: boolean;
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
 }
 
 export interface Sort {
@@ -27,7 +23,17 @@ export interface Sort {
 
 export interface Pageable {
 
-  ApiBus: ApiBus;  
+  pageable: ApiBus;  
   Sort: Sort;
   content: Bus[];
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+
+ 
 }
